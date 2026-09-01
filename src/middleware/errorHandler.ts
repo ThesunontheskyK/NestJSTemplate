@@ -72,8 +72,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
     const payload: any = {
       message,
-      timestamp: new Date().toISOString(),
-      path: request.url,
+      // timestamp: new Date().toISOString(),
+      // path: request.url,
     };
 
     if (errors) {
