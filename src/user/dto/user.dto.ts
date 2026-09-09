@@ -23,5 +23,8 @@ export class GetUserDto {
   @IsOptional()
   @IsString()
   sortOrder?: string = 'ASC';
-    
 }
+
+export class CreateUserDto  {}
+
+export class UpdateUserDto {}

@@ -1,11 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { poolPromise } from '../config/db.config';
 import * as sql from 'mssql';
 import { NotFoundError } from 'rxjs';
 import { AppError } from '../middleware/AppError';
-import { GetUserDto } from './dto/get-user.dto';
+import { GetUserDto, CreateUserDto, UpdateUserDto } from './dto/user.dto';
 import { permission } from 'process';
 
 @Injectable()
@@ -54,7 +52,6 @@ export class UserService {
 
     let baseQuery = ' FROM dbo.mst_User';
 
-   
     if (search) {
       baseQuery += ' WHERE fullname LIKE @Search OR email LIKE @Search';
       request.input('Search', sql.NVarChar, `%${search}%`);
@@ -71,7 +68,6 @@ export class UserService {
     // สร้างคำสั่งดึงข้อมูลพร้อมแบ่งหน้า
     const dataQuery = `SELECT fullname,email,department,position,permission${baseQuery} ORDER BY ${safeSort} ${safeOrder} OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY`;
 
-
     const countResult = await request.query(countQuery);
     const dataResult = await request.query(dataQuery);
 
@@ -86,7 +82,7 @@ export class UserService {
       data: dataResult.recordset.map((row) => {
         return {
           ...row,
-          permission: JSON.parse(row.permission)
+          permission: JSON.parse(row.permission),
         };
       }),
     };

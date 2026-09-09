@@ -11,10 +11,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/middleware/jwt-auth.guard';
-import { GetUserDto } from './dto/get-user.dto';
+import { GetUserDto, CreateUserDto, UpdateUserDto } from './dto/user.dto';
 
 @Controller('user')
 export class UserController {
@@ -50,5 +48,4 @@ export class UserController {
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }
-
 }
