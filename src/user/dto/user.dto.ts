@@ -1,4 +1,4 @@
-import { IsOptional, IsString, Min } from 'class-validator';
+import { IsOptional, IsString, Min, IsNotEmpty } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class GetUserDto {
@@ -25,6 +25,22 @@ export class GetUserDto {
   sortOrder?: string = 'ASC';
 }
 
-export class CreateUserDto  {}
+export class CreateUserDto  {
+  @IsString()
+  fullname? : string;
+
+  @IsString()
+  email? : string;
+
+  @IsString()
+
+  password? : string;
+
+  @IsString()
+  department? : string;
+
+  @IsString()
+  position? : string;
+}
 
 export class UpdateUserDto {}
